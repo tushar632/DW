@@ -1,0 +1,68 @@
+[
+  {
+    "op": "core/column-addition",
+    "description": "Extract On /1/ {Camis - Location ID 1} [Camis - Location ID] (#### Rows)",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "newColumnName": "Camis - Location ID 1",
+    "columnInsertIndex": 1,
+    "baseColumnName": "Camis - Location ID",
+    "expression": "grel:trim(partition(value, /1/)[1])",
+    "onError": "set-to-blank",
+    "omitted": false
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Remove Characters After /28947420/ [Camis - Location ID] (#### Rows)",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Camis - Location ID",
+    "expression": "grel:trim(partition(value, /28947420/)[0] + partition(value, /28947420/)[1])",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename Column [Camis - Location ID 1] To {Location ID 1}",
+    "oldColumnName": "Camis - Location ID 1",
+    "newColumnName": "Location ID 1"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename Column [Camis - Location ID] To {Camis}",
+    "oldColumnName": "Camis - Location ID",
+    "newColumnName": "Camis"
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Edit Cell [State] (#### Rows)",
+    "engineConfig": null,
+    "columnName": "State",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "new york",
+          "New York"
+        ],
+        "to": "New York"
+      }
+    ]
+  },
+  {
+    "op": "core/fill-down",
+    "description": "Fill Down [Country] (#### Rows)",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Country"
+  }
+]
